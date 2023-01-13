@@ -22,6 +22,14 @@ RSpec.describe 'doctors show page' do
     @doctor_1.patients << @patient_6
     @doctor_1.patients << @patient_7
 
+    @doctor_2.patients << @patient_1
+    @doctor_2.patients << @patient_2
+    @doctor_2.patients << @patient_3
+    @doctor_2.patients << @patient_4
+    @doctor_2.patients << @patient_5
+    @doctor_2.patients << @patient_6
+    @doctor_2.patients << @patient_7
+
   end
   describe 'user story 1' do 
     it 'displays all of the doctors information the hospital where they work and all of the doctors patients' do 
@@ -41,6 +49,46 @@ RSpec.describe 'doctors show page' do
       expect(page).to have_content(@patient_7.name)
       expect(page).to_not have_content(@patient_3.name)
       expect(page).to_not have_content(@patient_4.name)
+    end
+  end
+
+  describe 'user story 2' do 
+    it 'displays a button next to each patient to remove them from the doctors caseload. After clicking button return to doctors show page and no longer see the patient. Other doctors with this patient still have them in their caseload' do 
+      visit "/doctors/#{@doctor_1.id}"
+
+      within "#patient-#{@patient_1.id}" do
+        expect(page).to have_content(@patient_1.name)
+
+        click_button "Delete #{@patient_1.name}"
+
+        expect(current_path).to eq("/doctors/#{@doctor_1.id}")
+        expect(page).to_not have_content(@patient_1.name)
+      end
+
+      within "#patient-#{@patient_2.id}" do
+        expect(page).to have_content(@patient_2.name)
+        expect(page).to have_button("Delete #{@patient_2.name}") 
+      end
+
+      within "#patient-#{@patient_5.id}" do
+        expect(page).to have_content(@patient_5.name)
+        expect(page).to have_button("Delete #{@patient_5.name}") 
+      end
+
+      within "#patient-#{@patient_6.id}" do
+        expect(page).to have_content(@patient_6.name)
+        expect(page).to have_button("Delete #{@patient_6.name}") 
+      end
+
+      within "#patient-#{@patient_7.id}" do
+        expect(page).to have_content(@patient_7.name)
+        expect(page).to have_button("Delete #{@patient_7.name}") 
+      end
+
+      visit "/doctors/#{@doctor_2.id}"
+
+      expect(page).to have_content(@patient_1.name)
+      expect(page).to have_button("Delete #{@patient_1.name}") 
     end
   end
 end
