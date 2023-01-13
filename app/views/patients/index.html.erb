@@ -1,7 +1,7 @@
 <h1>Patients Index Page</h1>
 
 <p><strong>All Patients Over 18 Acending Order: </strong></p>
-<% @patients.patients_over_18_acending.each do |patient| %>
+<% @patients.each do |patient| %>
   <p><strong>Patient's Name: </strong><%= patient.name %><br>
   <strong>Patient's Age: </strong><%= patient.age %></p><br>
 <% end %>
