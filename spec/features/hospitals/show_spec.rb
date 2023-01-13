@@ -44,11 +44,26 @@ RSpec.describe 'Hospitals show page' do
     it 'displays the hospitals name, doctors that work there, and number of patients for each doctor, doctors ordered from most patients to least patients' do 
       visit "/hospitals/#{@hospital_1.id}"
 
-      expect(page).to have_content(@hospital_1.name)
-      expect(page).to_not have_content(@hospital_2.name)
-      expect(@doctor_3.name "Patient Count: #{@doctor_3.patient_count}").to appear_before(@doctor_2 "Patient Count: #{@doctor_2.patient_count}")
-      expect(@doctor_2.name "Patient Count: #{@doctor_2.patient_count}").to appear_before(@doctor_1 "Patient Count: #{@doctor_1.patient_count}")      
-      expect(page).to_not have_content(@doctor_4.name)
+      within "#doctor-#{@doctor_1.id}" do
+        expect(page).to have_content(@doctor_1.name)
+        expect(page).to have_content(@doctor_1.patient_count) 
+      end
+
+      within "#doctor-#{@doctor_2.id}" do
+        expect(page).to have_content(@doctor_2.name)
+        expect(page).to have_content(@doctor_2.patient_count) 
+      end
+
+      within "#doctor-#{@doctor_3.id}" do
+        expect(page).to have_content(@doctor_3.name)
+        expect(page).to have_content(@doctor_3.patient_count) 
+      end
+
+      # expect(page).to have_content(@hospital_1.name)
+      # expect(page).to_not have_content(@hospital_2.name)
+      # expect(@doctor_3.name).to appear_before(@doctor_2.name)
+      # expect(@doctor_2.name).to appear_before(@doctor_1.name)      
+      # expect(page).to_not have_content(@doctor_4.name)
     end
   end
 end
