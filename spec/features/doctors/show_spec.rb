@@ -1,11 +1,11 @@
-require 'rails_helpers'
+require 'rails_helper'
 
 RSpec.describe 'doctors show page' do 
   before :each do 
-    @hospital_1 = hospital.create!(name: "Children's")
+    @hospital_1 = Hospital.create!(name: "Children's")
     @doctor_1 = Doctor.create!(name: "River", specialty: "dermatology", university: "CU", hospital_id: @hospital_1.id)
     
-    @hospital_2 = hospital.create!(name: "Lutheran")
+    @hospital_2 = Hospital.create!(name: "Lutheran")
     @doctor_2 = Doctor.create!(name: "Bodi", specialty: "cardiology", university: "MSU", hospital_id: @hospital_2.id)
 
     @patient_1 = Patient.create!(name: "Dean", age: 55)
@@ -25,7 +25,7 @@ RSpec.describe 'doctors show page' do
   end
   describe 'user story 1' do 
     it 'displays all of the doctors information the hospital where they work and all of the doctors patients' do 
-      visit "/doctor/#{@doctor_1.id}"
+      visit "/doctors/#{@doctor_1.id}"
 
       expect(page).to have_content(@doctor_1.name)
       expect(page).to have_content(@doctor_1.specialty)
