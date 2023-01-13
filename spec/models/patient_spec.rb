@@ -19,6 +19,7 @@ RSpec.describe Patient do
 
     it 'returns all patients older than 18 in acending order' do 
       expect(Patient.patients_over_18_acending).to eq([@patient_1, @patient_3, @patient_2, @patient_4])
+      expect(Patient.patients_over_18_acending).to_not eq([@patient_6, @patient_7, @patient_5])
     end
   end
 end
