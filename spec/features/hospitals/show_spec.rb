@@ -59,8 +59,9 @@ RSpec.describe 'Hospitals show page' do
         expect(page).to have_content(@doctor_3.patient_count) 
       end
 
-      # expect(page).to have_content(@hospital_1.name)
-      # expect(page).to_not have_content(@hospital_2.name)
+      expect(page).to have_content(@hospital_1.name)
+      expect(page).to_not have_content(@hospital_2.name)
+
       # expect(@doctor_3.name).to appear_before(@doctor_2.name)
       # expect(@doctor_2.name).to appear_before(@doctor_1.name)      
       # expect(page).to_not have_content(@doctor_4.name)
